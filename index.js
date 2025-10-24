@@ -4,6 +4,7 @@ const prisma = new PrismaClient()
 
 async function main() {
     // ... you will write your Prisma Client queries here
+    
     // await prisma.user.create({
     //     data: {
     //         name: 'Alice',
@@ -16,7 +17,7 @@ async function main() {
     //         },
     //     },
     // })
-    //
+    
     // const allUsers = await prisma.user.findMany({
     //     include: {
     //         posts: true,
@@ -24,6 +25,7 @@ async function main() {
     //     },
     // })
     // console.dir(allUsers, { depth: null })
+
     const post = await prisma.post.update({
         where: { id: 1 },
         data: { published: true },
