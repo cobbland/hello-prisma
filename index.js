@@ -1,43 +1,20 @@
-const { PrismaClient } = require('./generated/prisma')
+const { PrismaClient, Prisma } = require('./generated/prisma')
 
 const prisma = new PrismaClient()
 
 async function main() {
-    // ... you will write your Prisma Client queries here
-    
-    // await prisma.user.create({
-    //     data: {
-    //         name: 'Alice',
-    //         email: 'alice@prisma.io',
-    //         posts: {
-    //             create: { title: 'Hello World' },
-    //         },
-    //         profile: {
-    //             create: { bio: 'I like turtles' },
-    //         },
-    //     },
-    // })
-    
-    // const allUsers = await prisma.user.findMany({
-    //     include: {
-    //         posts: true,
-    //         profile: true,
-    //     },
-    // })
-    // console.dir(allUsers, { depth: null })
-
-    // const post = await prisma.post.update({
-    //     where: { id: 1 },
-    //     data: { published: true },
-    // })
-    // console.log(post)
-
-    const user = await prisma.user.create({
-        data: {
-            email: 'elsa@prisma.io',
-            name: 'Elsa Prisma',
-        },
+    const createUsers = await prisma.user.createMany({
+        data: [
+            { name: 'Alice', email: 'alice@example.com' },
+            { name: 'Bob', email: 'bob@example.com' },
+            { name: 'Charlie', email: 'charlie@example.com' },
+        ],
+        skipDuplicates: true, // won't insert users if email already exists
     });
+
+    const users = await prisma.user.findMany();
+
+    console.log(users);
 }
 
 main()
